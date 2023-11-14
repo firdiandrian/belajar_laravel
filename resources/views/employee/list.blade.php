@@ -8,20 +8,12 @@
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
 </head>
 <body>
-
-    <div class="bg-dark py-3">
-        <div class="container">
-            <div class="h4 text-white text-center">CRUD</div>
-        </div>
-    </div>
+    @include('komponen.navbar')
 
     <div class="container ">
         <div class="d-flex justify-content-between py-5">
             <div>
                 <a href="{{ route('employees.create') }}" class="btn btn-primary">Create</a>
-            </div>
-            <div>
-                <a href="{{ route('logout') }}" class="btn btn-danger ">Logout</a>
             </div>
         </div>
 

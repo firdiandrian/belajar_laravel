@@ -10,7 +10,6 @@
 <body>
     <div class="div container py-5">
         @yield('konten')
-    </div>
-    
+    </div> 
 </body>
 </html>

@@ -6,14 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>CRUD</title>
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
 <body>
-
-    <div class="bg-dark py-3">
-        <div class="container">
-            <div class="h4 text-white text-center">CRUD</div>
-        </div>
-    </div>
+    @include('komponen.navbar')
 
     <div class="container ">
         <div class="d-flex justify-content-between py-3">
