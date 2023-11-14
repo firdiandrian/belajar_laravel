@@ -25,7 +25,7 @@
 
         <form action="{{ route('employees.update',$employee->id) }}" method="post" enctype="multipart/form-data">
             @csrf
-            @method('put')
+            @method('PUT')
             <div class="card border-0 shadow-lg">
                 <div class="card-body">
                     <div class="mb-3">
@@ -58,8 +58,8 @@
                         @enderror 
                         
                         <div class="pt-3">
-                            @if($employee->image != '' && file_exists(public_path().'/uploads/employees/'.$employee->image))
-                            <img src="{{ url('uploads/employees/'.$employee->image) }}" alt="" width="100" height="100">
+                            @if($employee->image != '' && file_exists(public_path().'/storage/photo/'.$employee->image))
+                            <img src="{{ url('/storage/photo/'.$employee->image) }}" alt="" width="100" height="100">
                         @endif
                         </div>
                     </div>

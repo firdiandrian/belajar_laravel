@@ -29,18 +29,13 @@
                 <div class="card-body">
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
-                        <input type="text" name="name" id="name" placeholder="Enter Name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}">
-                        @error('name')
-                            <p class="invalid-feedback">{{ $message }}</p>    
-                        @enderror                        
+                        <input type="text" name="name" id="name" placeholder="Enter Name" class="form-control">
+                            
                     </div>
 
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="text" name="email" id="email" placeholder="Enter Email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}">
-                        @error('email')
-                            <p class="invalid-feedback">{{ $message }}</p>    
-                        @enderror      
+                        <input type="text" name="email" id="email" placeholder="Enter Email" class="form-control">     
                     </div>
 
                     <div class="mb-3">

@@ -30,8 +30,8 @@
                     <p class="card-text"> <b>Alamat :</b> {{ $employee->address }}</p>
                 </div>
                 <div class="my-2 col-lg-4 d-flex justify-content-end ">
-                    @if($employee->image != '' && file_exists(public_path().'/uploads/employees/'.$employee->image))
-                    <img src="{{ url('uploads/employees/'.$employee->image) }}" alt="" width="200px" height="200px">
+                    @if($employee->image != '' && file_exists(public_path().'/storage/photo/'.$employee->image))
+                    <img src="{{ url('/storage/photo/'.$employee->image) }}" alt="" width="200px" height="200px">
                     @else
                     <img src="{{ url('assets/images/no-image.png') }}" alt="" width="200px" height="200px">
                     @endif

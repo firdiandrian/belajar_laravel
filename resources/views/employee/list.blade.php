@@ -21,9 +21,14 @@
                 <a href="{{ route('employees.create') }}" class="btn btn-primary">Create</a>
             </div>
             <div>
-                <a href="{{ route('logout') }}" class="btn btn-danger ">Logout</a>
+                @if(Auth::check())
+                <a href="{{ route('logout') }}" class="btn btn-danger">Logout</a>
+                @endif
+                
             </div>
         </div>
+
+        
 
         @if(Session::has('success'))
         <div class="alert alert-success">
@@ -48,8 +53,8 @@
                     <tr valign="middle">
                         <td>{{ $employee->id }}</td>
                         <td>
-                            @if($employee->image != '' && file_exists(public_path().'/uploads/employees/'.$employee->image))
-                            <img src="{{ url('uploads/employees/'.$employee->image) }}" alt="" width="40" height="40" class="rounded-circle">
+                            @if($employee->image != '' && file_exists(public_path().'/storage/photo/'.$employee->image))
+                            <img src="{{ url('/storage/photo/'.$employee->image) }}" alt="" width="40" height="40" class="rounded-circle">
                             @else
                             <img src="{{ url('assets/images/no-image.png') }}" alt="" width="40" height="40" class="rounded-circle">
                             @endif
@@ -59,7 +64,7 @@
                         <td>{{ $employee->address }}</td>
                         <td>
                             {{-- <a href="" class="btn btn-primary btn-sm"></a> --}}
-                            <a href="{{ url('/employees/'.$employee->id)}}" class="btn btn-secondary btn-sm">Detail</a>
+                            <a href="{{ route('employees.show',$employee->id)}}" class="btn btn-secondary btn-sm">Detail</a>
                             <a href="{{ route('employees.edit',$employee->id) }}" class="btn btn-primary btn-sm">Edit</a>
                             <a href="#" onclick="deleteEmployee({{ $employee->id }})" class="btn btn-danger btn-sm">Delete</a>
 
