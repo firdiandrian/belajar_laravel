@@ -53,7 +53,7 @@ class EmployeeController extends Controller
             if ($request->image) {
                 $ext = $request->image->getClientOriginalExtension();
                 $newFileName = time().'.'.$ext;
-                $request->image->move(public_path().'/uploads/employees/',$newFileName); // This will save file in a folder
+                $request->image->move(public_path().'/storage/photo/',$newFileName); // This will save file in a folder
                 
                 $employee->image = $newFileName;
                 $employee->save();
@@ -97,12 +97,12 @@ class EmployeeController extends Controller
 
                 $ext = $request->image->getClientOriginalExtension();
                 $newFileName = time().'.'.$ext;
-                $request->image->move(public_path().'/uploads/employees/',$newFileName); // This will save file in a folder
+                $request->image->move(public_path().'/storage/photo/',$newFileName); // This will save file in a folder
                 
                 $employee->image = $newFileName;
                 $employee->save();
-
-                File::delete(public_path().'/uploads/employees/'.$oldImage);
+  
+                File::delete(public_path().'/storage/photo/'.$oldImage);
             }            
 
             return redirect()->route('employees.index')->with('success','Employee updated successfully.');
@@ -116,7 +116,7 @@ class EmployeeController extends Controller
 
     public function destroy(Employee $employee, Request $request) {
         //$employee = Employee::findOrFail($id);                
-        File::delete(public_path().'/uploads/employees/'.$employee->image);
+        File::delete(public_path().'/storage/photo/'.$employee->image);
         $employee->delete();        
         return redirect()->route('employees.index')->with('success','Employee deleted successfully.');
     }

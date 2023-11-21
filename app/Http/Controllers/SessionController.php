@@ -31,16 +31,19 @@ class SessionController extends Controller
         'password' => $request->password
     ];
     if (Auth::attempt($infologin)) {
-        return redirect('employees')->with('succes','berhasil');
+        $request->session()->regenerate();
+        return redirect()->intended('/')->with('succes','berhasil');
     }else{
         return redirect('sesi')->withErrors('Username dan password yang dimandbadb ');
     }
     
     
 }
-function logout() {
+function logout(Request $request) {
     Auth::logout();
-    return redirect('sesi')->with('succes','berfhsjhdfg');
+        $request->session()->invalidate();  
+        $request->session()->regenerateToken(); 
+        return redirect('');
 }
 function register() {
     return view("sesi/register");
