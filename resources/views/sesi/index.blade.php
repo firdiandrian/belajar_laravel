@@ -12,6 +12,8 @@
         <div class="w-50 mx-auto">
             <div class="border rounded px-4 py-4">
                 <h1 class="text-center">LOGIN</h1>
+
+                @include('komponen.pesan')
                 <form action="/sesi/login" method="post">
                     @csrf
                     <div class="mb-3">

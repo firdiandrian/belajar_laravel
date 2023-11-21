@@ -32,9 +32,9 @@ class SessionController extends Controller
     ];
     if (Auth::attempt($infologin)) {
         $request->session()->regenerate();
-        return redirect()->intended('/')->with('succes','berhasil');
+        return redirect()->intended('/')->with('success','Log In berhasil');
     }else{
-        return redirect('sesi')->withErrors('Username dan password yang dimandbadb ');
+        return redirect('sesi')->withErrors('Username dan Password Tidak Valid ');
     }
     
     
@@ -43,7 +43,7 @@ function logout(Request $request) {
     Auth::logout();
         $request->session()->invalidate();  
         $request->session()->regenerateToken(); 
-        return redirect('');
+        return redirect('')->with('success','Log Out Berhasil');;
 }
 function register() {
     return view("sesi/register");
@@ -54,15 +54,16 @@ function create(Request $request) {
 
     $request->validate([
         'name' => 'required',
-        'email' => 'required|email|unique:users',
-        'password' => 'required|min:6'
+        'email' => 'required|email|unique:users|ends_with:.com',
+        'password' => 'required|min:5'
     ], [
         'name.required' => 'name wajib diisi',
         'email.required' => 'Email wajib diisi',
-        'email.email' => 'silakan masukkan email yg valid',
+        'email.email' => 'Silakan update email dengan tanda @',
         'email.unique' => 'silakan pilih email yg lain',
+        'email.ends_with' => 'Email harus .com',
         'password.required' => 'Password wajib diisi',
-        'password.mon' => 'minimum 6 karakter'
+        'password.min' => 'minimum 5 karakter', 
     ]);
 
     $data = [
@@ -77,10 +78,10 @@ function create(Request $request) {
         'password' => $request->password
     ];
      if (Auth::attempt($infologin)) {
-        return redirect('employees')->with('success', 'Berhasil login');
+        return redirect()->intended('/')->with('success', 'Berhasil register dan login');
     } else {
         return redirect('sesi')->withErrors('Username dan password yang dimasukkan tidak sesuai');
     }
-
+    // return redirect()->route('employees.edit',$employee->id)->withErrors($validator)->withInput();
 }
 }

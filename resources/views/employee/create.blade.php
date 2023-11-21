@@ -23,19 +23,26 @@
             </div>
         </div>
 
+        @include('komponen.pesan')
         <form action="{{ route('employees.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="card border-0 shadow-lg">
                 <div class="card-body">
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
-                        <input type="text" name="name" id="name" placeholder="Enter Name" class="form-control">
+                        <input type="text" name="name" id="name" placeholder="Enter Name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}">
+                        @error('name')
+                            <p class="invalid-feedback">{{ $message }}</p>    
+                        @enderror
                             
                     </div>
 
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="text" name="email" id="email" placeholder="Enter Email" class="form-control">     
+                        <input type="text" name="email" id="email" placeholder="Enter Email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}">     
+                        @error('email')
+                            <p class="invalid-feedback">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
