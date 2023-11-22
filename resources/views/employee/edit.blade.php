@@ -17,7 +17,7 @@
                 <a href="{{ route('employees.index') }}" class="border-2 bg-blue-500 text-white px-4 py-2 mr-4 rounded-xl">Back</a>
             </div>
         </div>
-
+        @include('komponen.pesan')
         <form action="{{ route('employees.update',$employee->id) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PUT')

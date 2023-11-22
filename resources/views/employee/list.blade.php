@@ -11,11 +11,21 @@
 </head>
 <body>
     @include('komponen.navbar')
+
     <div class="flex justify-between px-5 py-5 ">
             <div> 
                 <a href="{{ route('employees.create') }}" class=" mx-1 px-4 py-2 rounded-xl bg-green-600 text-white hover:text-white hover:bg-slate-600">Create</a>
             </div>
         </div>
+
+        @include('komponen.pesan')
+        <form action="{{ route('employees.search') }}" method="GET" class="mb-3">
+            <div class="w-[95%] h-12 flex justify-center items-center mx-auto mt-4 border-2 rounded-2xl sm:w-[65%] md:w-[50%] lg:w-[30%]">
+                <img src="{{ url('/storage/gambar/search-logo.png') }}" alt="" class="w-7 h-7">
+                <input type="text" name="keyword" class="w-full px-2 outline-none" placeholder="Search by name email address" value="{{ session('employee_search_keyword') }}">
+                <button type="submit" class="mx-4 ">Search</button>
+            </div>
+        </form>
 
     <div class="grid my-6 mx-6 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
     @foreach ($employees as $employee)
@@ -47,19 +57,22 @@
             </div>
         </div>
 
-        
+        @include('komponen.pesan')
 
-        @if(Session::has('success'))
-        <div class="alert alert-success">
-            {{ Session::get('success') }}
-        </div>
-        @endif
+        <form action="{{ route('employees.search') }}" method="GET" class="mb-3">
+            <div class="input-group justify-content-end">
+                <input type="text" name="keyword" class="form-control col-md-3" placeholder="Search by name email address" value="{{ session('employee_search_keyword') }}">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+        
+        
 
         <div class="card border-0 shadow-lg">
             <div class="card-body">
                 <table class="table table-striped">
                     <tr>
-                        <th width="30">ID</th>
+                        <th width="30">NO</th>
                         <th>Image</th>
                         <th>Name</th>
                         <th>Email</th>
@@ -68,9 +81,13 @@
                     </tr>
 
                     @if($employees->isNotEmpty())
+                        @php
+                            $counter = 1;
+                        @endphp
                     @foreach ($employees as $employee)
                     <tr valign="middle">
-                        <td>{{ $employee->id }}</td>
+                        {{-- <td>{{ $employee->id }}</td> --}}
+                        <td>{{ $counter++ }}</td>
                         <td>
                             @if($employee->image != '' && file_exists(public_path().'/storage/photo/'.$employee->image))
                             <img src="{{ url('/storage/photo/'.$employee->image) }}" alt="" width="40" height="40" class="rounded-circle">

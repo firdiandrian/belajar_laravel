@@ -11,6 +11,7 @@
         <div class="w-96 mx-auto mt-40">
             <div class="px-4 py-4">
                 <h1 class="text-center text-2xl font-bold">Daftar</h1>
+                @include('komponen.pesan')
                 <form action="/sesi/create" method="post">
                     @csrf
                     <div class="mb-3">

@@ -8,6 +8,7 @@
     <title>Login Form</title>
 </head>
 <body>
+@include('komponen.pesan')
     <div class="container">
         <div class=" w-96 mx-auto mt-40">
             <div class="px-4 py-4">

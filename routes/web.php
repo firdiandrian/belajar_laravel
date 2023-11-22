@@ -27,6 +27,9 @@ Route::get('/employees/{employee}/edit',[EmployeeController::class,'edit'])->nam
 Route::put('/employees/{employee}',[EmployeeController::class,'update'])->name('employees.update')->middleware('isLogin');
 Route::delete('/employees/{employee}',[EmployeeController::class,'destroy'])->name('employees.destroy')->middleware('isLogin');
 
+// Tambahkan route untuk fungsi pencarian
+Route::get('/employees/search', [EmployeeController::class, 'search'])->name('employees.search');
+
 // Route::resource('employees',EmployeeController::class)->middleware('isLogin');
 
 Route::get('sesi', [SessionController::class, 'index'])->name('sesi')->middleware('isTamu');

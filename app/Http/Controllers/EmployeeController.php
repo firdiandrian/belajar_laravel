@@ -21,6 +21,23 @@ class EmployeeController extends Controller
         return view('employee.detail')->with('employee', $employees);
     }
 
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+
+        session(['employee_search_keyword' => $keyword]);
+
+        $employees = Employee::when($keyword, function ($query) use ($keyword) {
+                $query->where('name', 'like', "%$keyword%")
+                    ->orWhere('email', 'like', "%$keyword%")
+                    ->orwhere('address', 'like', "%$keyword%");
+            })
+            ->orderBy('id', 'DESC')
+            ->paginate(5);
+
+        return view('employee.list', ['employees' => $employees, 'keyword' => $keyword]);
+    }
+
     public function create() {
         return view('employee.create');
     }
@@ -28,8 +45,16 @@ class EmployeeController extends Controller
     public function store(Request $request) {
         $validator = Validator::make($request->all(),[
             'name' => 'required',
-            'email' => 'required',
-            'image' => 'sometimes|image:gif,png,jpeg,jpg'
+            'email' => 'required|email|unique:employees|ends_with:.com',
+            'image' => 'sometimes|mimes:png,jpeg,jpg'
+        ],
+        [
+            'name.required' => 'name wajib diisi',
+            'email.required' => 'Email wajib diisi',
+            'email.email' => 'silakan masukkan email dengan tanda @',
+            'email.unique' => 'silakan pilih email yg lain',
+            'email.ends_with' => 'email harus .com',
+            'image.mimes' => 'format image tidak didukung'
         ]);
 
         if ( $validator->passes() ) {
@@ -77,10 +102,19 @@ class EmployeeController extends Controller
 
         $validator = Validator::make($request->all(),[
             'name' => 'required',
-            'email' => 'required',
-            'image' => 'sometimes|image:gif,png,jpeg,jpg'
+            'email' => 'required|email|unique:employees|ends_with:.com',
+            'address' => 'required|max:200', // Menambahkan validasi pada field address, maksimal 200 karakter
+            'image' => 'sometimes|mimes:png,jpeg,jpg'
+        ], [
+            'name.required' => 'Name wajib diisi',
+            'email.required' => 'Email wajib diisi',
+            'email.email' => 'Silakan update email dengan tanda @',
+            'email.unique' => 'silakan pilih email yg lain',
+            'email.ends_with' => 'Email harus .com',
+            'address.required' => 'Address wajib diisi',
+            'address.max' => 'Address tidak boleh lebih dari 200 kata', // Pesan untuk validasi maksimal 200 kata pada address
+            'image.mimes' => 'Format image tidak didukung'
         ]);
-
         if ( $validator->passes() ) {
             // Save data here
             // $employee = Employee::find($id);
@@ -90,6 +124,7 @@ class EmployeeController extends Controller
             // $employee->save();
 
             $employee->fill($request->post())->save();
+            
 
             // Upload image here
             if ($request->image) {
